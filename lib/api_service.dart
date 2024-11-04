@@ -2,14 +2,14 @@
 
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:permission_handler/permission_handler.dart';
 import 'package:file_picker/file_picker.dart';
 
 class ApiService {
-  final String _apiKey = 'uhfqNGflSLeNzDOmJTOxSEqZNS530uIzIpNfSWne';
+  final String _apiKey = dotenv.env['API_KEY'] ?? '';
 
-  // Fetch image data (URL, title, explanation, date) from NASA API
   Future<Map<String, String>?> fetchImageData() async {
     final url = 'https://api.nasa.gov/planetary/apod?api_key=$_apiKey';
 
@@ -18,7 +18,6 @@ class ApiService {
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
 
-        // Extract necessary fields and return them in a map
         return {
           'title': data['title'],
           'explanation': data['explanation'],
@@ -55,15 +54,15 @@ class ApiService {
   }
 
   // Download the image to directory
-  
+
   Future<String?> downloadImageToChosenDirectory(
       String imageUrl, String fileName) async {
-        //ask permision
+    //ask permision
     if (!await requestStoragePermission()) {
       print("Storage permission denied.");
       return null;
     }
-       //let user pick directory
+    //let user pick directory
     final saveDirectory = await pickSaveDirectory();
     if (saveDirectory == null) {
       print("No directory chosen.");
@@ -73,7 +72,7 @@ class ApiService {
     try {
       final response = await http.get(Uri.parse(imageUrl));
       if (response.statusCode == 200) {
-        //create a file with the directory name and filename 
+        //create a file with the directory name and filename
         final filePath = '$saveDirectory/$fileName';
         final file = File(filePath);
         await file.writeAsBytes(response.bodyBytes);
