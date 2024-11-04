@@ -1,16 +1,9 @@
 # nasa_
 
-A new Flutter project.
+nasa_APOD is an app that uses NASA's astronomy picture of the day API to retrieve images and other contents from their server and displays it to users everyday and allows them to save these images
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
